@@ -20,8 +20,6 @@ int main(int, char**)
 	app.add_window(view);
 	app.add_window(parameters);
 
-	app.get_io().Fonts->AddFontFromFileTTF("c:\\Windows\\Fonts\\segoeui.ttf", 18.0f);
-
 	app.run();
 
 	app.dispose();
