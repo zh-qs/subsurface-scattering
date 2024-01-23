@@ -1,0 +1,212 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Pliki źródłowe">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Pliki zasobów">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{8848d879-295a-4dc1-8976-e71ab2424f81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\drawing">
+      <UniqueIdentifier>{3c5e527b-451f-4d03-9d48-0df3fa627ddc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\drawing">
+      <UniqueIdentifier>{32aca288-205b-4424-8dc9-83b9ffd3c322}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\shaders">
+      <UniqueIdentifier>{859959cf-a0ed-444a-a31a-35b1a957f260}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki zasobów\models">
+      <UniqueIdentifier>{6731df7a-2703-495f-8df7-a6c361761d11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki nagłówkowe\scattering">
+      <UniqueIdentifier>{88416f13-8a8d-462a-9580-2e82d86aa937}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Pliki źródłowe\scattering">
+      <UniqueIdentifier>{eb79ed7f-5cc6-4cf3-96f5-fb0f9a312fb9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="window.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="gl_application.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="exception.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="task.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="dockspace.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="fullscreen_window.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="quaternion.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="buffer.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="frame_buffer.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="vertex_array.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="algebra.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="shader.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="mesh_generator.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="bezier_cube.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="imgui_guards.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="box.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="deformed_mesh.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="generic_vector.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+    <ClInclude Include="shader_library.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="scattering_view_window.h">
+      <Filter>Pliki nagłówkowe\scattering</Filter>
+    </ClInclude>
+    <ClInclude Include="scattering_parameters_window.h">
+      <Filter>Pliki nagłówkowe\scattering</Filter>
+    </ClInclude>
+    <ClInclude Include="state_listener.h">
+      <Filter>Pliki nagłówkowe</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui\imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui\imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui\imgui_impl_glfw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui\imgui_impl_opengl3.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui\imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui\imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui\imgui_widgets.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="gl_application.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="fullscreen_window.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>Pliki źródłowe\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="algebra.cpp">
+      <Filter>Pliki źródłowe</Filter>
+    </ClCompile>
+    <ClCompile Include="shader.cpp">
+      <Filter>Pliki źródłowe\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="mesh_generator.cpp">
+      <Filter>Pliki źródłowe\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="shader_library.cpp">
+      <Filter>Pliki źródłowe\drawing</Filter>
+    </ClCompile>
+    <ClCompile Include="scattering_view_window.cpp">
+      <Filter>Pliki źródłowe\scattering</Filter>
+    </ClCompile>
+    <ClCompile Include="scattering_parameters_window.cpp">
+      <Filter>Pliki źródłowe\scattering</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="glfw3.dll" />
+    <CopyFileToFolders Include="axes_vertex_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="axes_fragment_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="phong_fragment_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="phong_vertex_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="simple_fragment_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="simple_vertex_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="models\duck.txt">
+      <Filter>Pliki zasobów\models</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dummy_vertex_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="patch_tess_control_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="bezier_patch_tess_eval_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="scpm_fragment_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="quad_vertex_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="phong_deformed_vertex_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
