@@ -153,6 +153,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="generic_vector.h" />
+    <ClInclude Include="light.h" />
+    <ClInclude Include="scattering_parameters.h" />
     <ClInclude Include="scattering_parameters_window.h" />
     <ClInclude Include="scattering_view_window.h" />
     <ClInclude Include="shader_library.h" />
@@ -245,6 +247,12 @@
     </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="depth_map_fragment_shader.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="depth_map_vertex_shader.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <None Include="phong_deformed_vertex_shader.glsl" />
     <CopyFileToFolders Include="quad_vertex_shader.glsl">
       <FileType>Document</FileType>

@@ -8,6 +8,7 @@
 #include "quaternion.h"
 #include "camera.h"
 #include "shader_library.h"
+#include "light.h"
 #include <vector>
 
 template <GLenum MODE>
@@ -17,12 +18,12 @@ protected:
 	VertexBuffer vbo;
 	VertexBuffer normal_vbo;
 	ElementBuffer ebo;
-	ShaderType shader_type;
 	size_t indices_count = 0;
 	bool has_normals = false;
 public:
 	Matrix4x4 model = Matrix4x4::identity();
 	Vector4 color = { 1.0f,1.0f,1.0f,1.0f };
+	ShaderType shader_type;
 	bool visible = true;
 
 	explicit Mesh(const ShaderType type = ShaderType::Simple) : vao(), vbo(), shader_type(type) {
@@ -79,7 +80,7 @@ public:
 	}
 	void set_data(const std::vector<Vector3>& points);
 	void set_normals(const std::vector<Vector3>& normals);
-	void render(const Camera& camera, int width, int height);
+	void render(const Camera& camera, const Light& light, int width, int height);
 };
 
 template <GLenum MODE>
@@ -102,7 +103,7 @@ void Mesh<MODE>::set_normals(const std::vector<Vector3>& normals)
 }
 
 template <GLenum MODE>
-void Mesh<MODE>::render(const Camera& camera, int width, int height)
+void Mesh<MODE>::render(const Camera& camera, const Light& light, int width, int height)
 {
 	if (!visible)
 		return;
@@ -118,6 +119,7 @@ void Mesh<MODE>::render(const Camera& camera, int width, int height)
 	shader.set_m(model);
 	shader.set_color(color.x, color.y, color.z, color.w);
 	shader.set_camera_position(camera.get_world_position());
+	shader.set_light(light);
 
 	vao.bind();
 	glDrawElements(MODE, indices_count, GL_UNSIGNED_INT, nullptr);

@@ -4,11 +4,11 @@
 #include <type_traits>
 
 enum class ShaderType {
-	Simple, Axes, Phong, PhongDeformed
+	Simple, Axes, Phong, PhongDeformed, DepthMap
 };
 
 class ShaderLibrary {
-	static constexpr int SHADER_COUNT = 4;
+	static constexpr int SHADER_COUNT = 5;
 	static Shader shaders[SHADER_COUNT];
 
 	static bool initialized;
