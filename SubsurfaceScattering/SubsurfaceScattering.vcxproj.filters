@@ -111,6 +111,12 @@
     <ClInclude Include="state_listener.h">
       <Filter>Pliki nagłówkowe</Filter>
     </ClInclude>
+    <ClInclude Include="scattering_parameters.h">
+      <Filter>Pliki nagłówkowe\scattering</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Pliki nagłówkowe\drawing</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -201,6 +207,12 @@
       <Filter>Pliki zasobów\shaders</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="quad_vertex_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="depth_map_fragment_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="depth_map_vertex_shader.glsl">
       <Filter>Pliki zasobów\shaders</Filter>
     </CopyFileToFolders>
   </ItemGroup>

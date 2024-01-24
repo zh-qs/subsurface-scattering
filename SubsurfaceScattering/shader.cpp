@@ -35,7 +35,7 @@ GLuint Shader::load_shader(const char* filename, GLenum shader_type)
 	if (info_log_length > 0) {
 		std::vector<char> message(info_log_length + 1);
 		glGetShaderInfoLog(id, info_log_length, NULL, message.data());
-		printf("%s\n", message.data());
+		printf("%s, %s\n", filename, message.data());
 		throw std::runtime_error(message.data());
 	}
 
@@ -48,6 +48,13 @@ void Shader::init_uniform_locations()
 	pv_location = get_uniform_location("pv");
 	m_location = get_uniform_location("m");
 	cam_pos_location = get_uniform_location("cam_pos");
+
+	light_pos_location = get_uniform_location("light_pos");
+	light_color_location = get_uniform_location("light_color");
+	ambient_location = get_uniform_location("ambient");
+	diffuse_location = get_uniform_location("diffuse");
+	specular_location = get_uniform_location("specular");
+	m_exponent_location = get_uniform_location("m_exponent");
 }
 
 void Shader::init(const char* vertex_shader_file, const char* fragment_shader_file)
@@ -230,6 +237,18 @@ void Shader::set_m(const Matrix4x4& m)
 void Shader::set_camera_position(const Vector3& position)
 {
 	glUniform3f(cam_pos_location, position.x, position.y, position.z);
+}
+
+void Shader::set_light(const Light &light) 
+{
+	glUniform3f(light_pos_location, light.position.x, light.position.y,
+				light.position.z);
+	glUniform3f(light_color_location, light.color.x, light.color.y,
+				light.color.z);
+	glUniform1f(ambient_location, light.ambient);
+	glUniform1f(diffuse_location, light.diffuse);
+	glUniform1f(specular_location, light.specular);
+	glUniform1f(m_exponent_location, light.m);
 }
 
 void Shader::dispose()
