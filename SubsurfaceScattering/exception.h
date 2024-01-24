@@ -5,7 +5,7 @@
 
 #define THROW_EXCEPTION throw GlApplicationInitException()
 
-class GlApplicationInitException : public std::exception {
-public:
-	GlApplicationInitException() : exception("Application init error") { }
+class GlApplicationInitException : public std::runtime_error {
+  public:
+	GlApplicationInitException() : runtime_error("Application init error") {}
 };
