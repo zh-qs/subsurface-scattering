@@ -16,6 +16,9 @@ void ScatteringParametersWindow::build() {
 	ImGui::SliderFloat("Diffuse", &parameters.light.diffuse, 0.0f, 1.0f);
 	ImGui::SliderFloat("Specular", &parameters.light.specular, 0.0f, 1.0f);
 	ImGui::SliderFloat("m", &parameters.light.m, 0.0f, 100.0f);
+	ImGui::SliderFloat("Wrap", &parameters.wrap, 0.0f, 1.0f);
+	ImGui::SliderFloat("Scatter width", &parameters.scatter_width, 0.0f, 1.0f);
+	ImGui::ColorEdit3("Scatter color", parameters.scatter_color.data());
 
 	ImGui::End();
 }

@@ -1,12 +1,11 @@
 #include "shader.h"
-#include <string>
 #include <fstream>
 #include <sstream>
 #include <stdexcept>
+#include <string>
 #include <vector>
 
-GLuint Shader::load_shader(const char* filename, GLenum shader_type)
-{
+GLuint Shader::load_shader(const char *filename, GLenum shader_type) {
 	GLuint id = glCreateShader(shader_type);
 
 	std::string shader_code;
@@ -14,7 +13,8 @@ GLuint Shader::load_shader(const char* filename, GLenum shader_type)
 
 	// read code
 	if (!ifstr.good()) {
-		throw std::runtime_error(std::string("Cannot open shader file: ") + filename);
+		throw std::runtime_error(std::string("Cannot open shader file: ") +
+								 filename);
 	}
 
 	std::stringstream sstr;
@@ -23,7 +23,7 @@ GLuint Shader::load_shader(const char* filename, GLenum shader_type)
 	ifstr.close();
 
 	// compile code
-	const GLchar* const shader_ptr = shader_code.c_str();
+	const GLchar *const shader_ptr = shader_code.c_str();
 	glShaderSource(id, 1, &shader_ptr, NULL);
 	glCompileShader(id);
 
@@ -42,8 +42,7 @@ GLuint Shader::load_shader(const char* filename, GLenum shader_type)
 	return id;
 }
 
-void Shader::init_uniform_locations()
-{
+void Shader::init_uniform_locations() {
 	color_location = get_uniform_location("color");
 	pv_location = get_uniform_location("pv");
 	m_location = get_uniform_location("m");
@@ -55,12 +54,17 @@ void Shader::init_uniform_locations()
 	diffuse_location = get_uniform_location("diffuse");
 	specular_location = get_uniform_location("specular");
 	m_exponent_location = get_uniform_location("m_exponent");
+
+	wrap_location = get_uniform_location("wrap");
+	scatter_color_location = get_uniform_location("scatter_color");
+	scatter_width_location = get_uniform_location("scatter_width");
 }
 
-void Shader::init(const char* vertex_shader_file, const char* fragment_shader_file)
-{
+void Shader::init(const char *vertex_shader_file,
+				  const char *fragment_shader_file) {
 	auto vertex_shader_id = load_shader(vertex_shader_file, GL_VERTEX_SHADER);
-	auto fragment_shader_id = load_shader(fragment_shader_file, GL_FRAGMENT_SHADER);
+	auto fragment_shader_id =
+		load_shader(fragment_shader_file, GL_FRAGMENT_SHADER);
 
 	// link shaders
 	id = glCreateProgram();
@@ -89,11 +93,14 @@ void Shader::init(const char* vertex_shader_file, const char* fragment_shader_fi
 	init_uniform_locations();
 }
 
-void Shader::init(const char* vertex_shader_file, const char* geometry_shader_file, const char* fragment_shader_file)
-{
+void Shader::init(const char *vertex_shader_file,
+				  const char *geometry_shader_file,
+				  const char *fragment_shader_file) {
 	auto vertex_shader_id = load_shader(vertex_shader_file, GL_VERTEX_SHADER);
-	auto geometry_shader_id = load_shader(geometry_shader_file, GL_GEOMETRY_SHADER);
-	auto fragment_shader_id = load_shader(fragment_shader_file, GL_FRAGMENT_SHADER);
+	auto geometry_shader_id =
+		load_shader(geometry_shader_file, GL_GEOMETRY_SHADER);
+	auto fragment_shader_id =
+		load_shader(fragment_shader_file, GL_FRAGMENT_SHADER);
 
 	// link shaders
 	id = glCreateProgram();
@@ -125,12 +132,17 @@ void Shader::init(const char* vertex_shader_file, const char* geometry_shader_fi
 	init_uniform_locations();
 }
 
-void Shader::init(const char* vertex_shader_file, const char* tess_control_shader_file, const char* tess_eval_shader_file, const char* fragment_shader_file)
-{
+void Shader::init(const char *vertex_shader_file,
+				  const char *tess_control_shader_file,
+				  const char *tess_eval_shader_file,
+				  const char *fragment_shader_file) {
 	auto vertex_shader_id = load_shader(vertex_shader_file, GL_VERTEX_SHADER);
-	auto tess_control_shader_id = load_shader(tess_control_shader_file, GL_TESS_CONTROL_SHADER);
-	auto tess_eval_shader_id = load_shader(tess_eval_shader_file, GL_TESS_EVALUATION_SHADER);
-	auto fragment_shader_id = load_shader(fragment_shader_file, GL_FRAGMENT_SHADER);
+	auto tess_control_shader_id =
+		load_shader(tess_control_shader_file, GL_TESS_CONTROL_SHADER);
+	auto tess_eval_shader_id =
+		load_shader(tess_eval_shader_file, GL_TESS_EVALUATION_SHADER);
+	auto fragment_shader_id =
+		load_shader(fragment_shader_file, GL_FRAGMENT_SHADER);
 
 	// link shaders
 	id = glCreateProgram();
@@ -165,13 +177,20 @@ void Shader::init(const char* vertex_shader_file, const char* tess_control_shade
 	init_uniform_locations();
 }
 
-void Shader::init(const char* vertex_shader_file, const char* tess_control_shader_file, const char* tess_eval_shader_file, const char* geometry_shader_file, const char* fragment_shader_file)
-{
+void Shader::init(const char *vertex_shader_file,
+				  const char *tess_control_shader_file,
+				  const char *tess_eval_shader_file,
+				  const char *geometry_shader_file,
+				  const char *fragment_shader_file) {
 	auto vertex_shader_id = load_shader(vertex_shader_file, GL_VERTEX_SHADER);
-	auto tess_control_shader_id = load_shader(tess_control_shader_file, GL_TESS_CONTROL_SHADER);
-	auto tess_eval_shader_id = load_shader(tess_eval_shader_file, GL_TESS_EVALUATION_SHADER);
-	auto geometry_shader_id = load_shader(geometry_shader_file, GL_GEOMETRY_SHADER);
-	auto fragment_shader_id = load_shader(fragment_shader_file, GL_FRAGMENT_SHADER);
+	auto tess_control_shader_id =
+		load_shader(tess_control_shader_file, GL_TESS_CONTROL_SHADER);
+	auto tess_eval_shader_id =
+		load_shader(tess_eval_shader_file, GL_TESS_EVALUATION_SHADER);
+	auto geometry_shader_id =
+		load_shader(geometry_shader_file, GL_GEOMETRY_SHADER);
+	auto fragment_shader_id =
+		load_shader(fragment_shader_file, GL_FRAGMENT_SHADER);
 
 	// link shaders
 	id = glCreateProgram();
@@ -209,38 +228,38 @@ void Shader::init(const char* vertex_shader_file, const char* tess_control_shade
 	init_uniform_locations();
 }
 
-void Shader::use()
-{
-	glUseProgram(id);
-}
+void Shader::use() { glUseProgram(id); }
 
-GLuint Shader::get_uniform_location(const GLchar* name)
-{
+GLuint Shader::get_uniform_location(const GLchar *name) {
 	return glGetUniformLocation(id, name);
 }
 
-void Shader::set_color(const float& r, const float& g, const float& b, const float& a)
-{
+void Shader::set_color(const float &r, const float &g, const float &b,
+					   const float &a) {
 	glUniform4f(color_location, r, g, b, a);
 }
 
-void Shader::set_pv(const Matrix4x4& pv)
-{
-	glUniformMatrix4fv(pv_location, 1, GL_FALSE, GLColumnOrderMatrix4x4(pv).elem);
+void Shader::set_pv(const Matrix4x4 &pv) {
+	glUniformMatrix4fv(pv_location, 1, GL_FALSE,
+					   GLColumnOrderMatrix4x4(pv).elem);
 }
 
-void Shader::set_m(const Matrix4x4& m)
-{
+void Shader::set_m(const Matrix4x4 &m) {
 	glUniformMatrix4fv(m_location, 1, GL_FALSE, GLColumnOrderMatrix4x4(m).elem);
 }
 
-void Shader::set_camera_position(const Vector3& position)
-{
+void Shader::set_camera_position(const Vector3 &position) {
 	glUniform3f(cam_pos_location, position.x, position.y, position.z);
 }
 
-void Shader::set_light(const Light &light) 
-{
+void Shader::set_wrap(const float &wrap) { glUniform1f(wrap_location, wrap); }
+
+void Shader::set_scatter(const float &width, const Vector3 &color) {
+	glUniform1f(scatter_width_location, width);
+	glUniform3f(scatter_color_location, color.x, color.y, color.z);
+}
+
+void Shader::set_light(const Light &light) {
 	glUniform3f(light_pos_location, light.position.x, light.position.y,
 				light.position.z);
 	glUniform3f(light_color_location, light.color.x, light.color.y,
@@ -251,7 +270,4 @@ void Shader::set_light(const Light &light)
 	glUniform1f(m_exponent_location, light.m);
 }
 
-void Shader::dispose()
-{
-	glDeleteProgram(id);
-}
+void Shader::dispose() { glDeleteProgram(id); }
