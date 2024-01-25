@@ -3,6 +3,7 @@
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
+#include <bmpmini.hpp>
 
 void MeshGenerator::generate_grid(LineMesh& mesh, unsigned int half_x_count, unsigned int half_z_count, float x_length, float z_length)
 {
@@ -122,6 +123,71 @@ void MeshGenerator::load_from_common_file(TriMesh &mesh, const char *filename) {
 	mesh.set_data(vertices, indices);
 	mesh.set_normals(normals);
 }
+
+void MeshGenerator::load_from_common_file_with_uvs(TexturedTriMesh &mesh,
+										  const char *filename) {
+	Assimp::Importer importer;
+	const aiScene *scene = importer.ReadFile(
+		filename, aiProcess_Triangulate | aiProcess_GenNormals);
+
+	if (!scene)
+		return;
+
+	if (scene->mNumMeshes == 0)
+		return;
+
+	const auto &input_mesh = *scene->mMeshes[0];
+
+	std::vector<Vector3> vertices(input_mesh.mNumVertices);
+	std::vector<Vector3> normals(vertices.size());
+	std::vector<IndexTriple> indices(input_mesh.mNumFaces);
+	std::vector<Vector2> uvs(vertices.size());
+
+	for (int i = 0; i < vertices.size(); ++i) {
+		const auto vertex = input_mesh.mVertices[i];
+		const auto normal = input_mesh.mNormals[i];
+		const auto uv = input_mesh.mTextureCoords[0][i];
+		vertices[i] = {vertex.x, vertex.y, vertex.z};
+		normals[i] = {normal.x, normal.y, normal.z};
+		uvs[i] = {uv.x, uv.y};
+	}
+	for (int i = 0; i < indices.size(); ++i) {
+		const auto face = input_mesh.mFaces[i];
+		if (face.mNumIndices != 3)
+			throw std::logic_error(
+				"Wrong number of vertices on imported model's face");
+		indices[i] = {face.mIndices[0], face.mIndices[1], face.mIndices[2]};
+	}
+
+	mesh.set_data(vertices, indices);
+	mesh.set_normals(normals);
+	mesh.set_uvs(uvs);
+}
+
+std::tuple<int, int, std::vector<Vector4>> load_bmp(const char *filename) {
+	image::BMPMini bmp;
+	bmp.read(filename);
+	auto img = bmp.get();
+	std::vector<Vector4> imageVec(img.width * img.height);
+	for (int i = 0; i < imageVec.size(); ++i) {
+		imageVec[i] = {img.data[3 * i + 2] / 255.0f,
+					   img.data[3 * i + 1] / 255.0f, img.data[3 * i] / 255.0f,
+					   1.0f};
+	}
+	return {img.width, img.height, imageVec};
+}
+
+void MeshGenerator::load_textures(TexturedTriMesh &mesh,
+								  const char *color_texture,
+								  const char *normal_texture) {
+	const auto colors = load_bmp(color_texture);
+	const auto cnormals = load_bmp(normal_texture);
+
+	mesh.set_color_texture(std::get<0>(colors), std::get<1>(colors),
+						   std::get<2>(colors).data());
+	mesh.set_normal_texture(std::get<0>(cnormals), std::get<1>(cnormals),
+							std::get<2>(cnormals).data());
+	}
 
 void MeshGenerator::generate_cube(TriMesh& mesh)
 {

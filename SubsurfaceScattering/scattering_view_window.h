@@ -2,6 +2,7 @@
 
 #include "window.h"
 #include "mesh.h"
+#include "textured_mesh.h"
 #include "scattering_parameters.h"
 
 class ScatteringViewWindow : public Window {
@@ -9,7 +10,7 @@ class ScatteringViewWindow : public Window {
 
 	TriMesh mesh;
 	TriMesh salt;
-	TriMesh head;
+	TexturedTriMesh head;
 
 	FrameBuffer fbo;
 	Camera camera;

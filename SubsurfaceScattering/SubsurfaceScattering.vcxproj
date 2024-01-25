@@ -89,7 +89,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;..\imgui;..\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\bmpmini;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -106,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;..\imgui;..\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\bmpmini;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -123,7 +123,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;..\imgui;..\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\bmpmini;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -140,7 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;..\imgui;..\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\bmpmini;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -177,6 +177,7 @@
     <ClInclude Include="state_listener.h" />
     <ClInclude Include="task.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="textured_mesh.h" />
     <ClInclude Include="vertex_array.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
@@ -265,16 +266,30 @@
     <CopyFileToFolders Include="..\..\..\..\sem8\vcpkg\packages\pugixml_x64-windows\bin\pugixml.dll">
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="models\head.glb">
+    <CopyFileToFolders Include="phong_deformed_vertex_shader.glsl">
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="phong_deformed_vertex_shader.glsl" />
     <CopyFileToFolders Include="quad_vertex_shader.glsl">
       <FileType>Document</FileType>
     </CopyFileToFolders>
     <CopyFileToFolders Include="scpm_fragment_shader.glsl">
       <FileType>Document</FileType>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="textured_fragment_shader.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="textured_vertex_shader.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="models\OldFace.FBX">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="models\Tete-Norm.bmp" />
+    <CopyFileToFolders Include="models\Tete-Tex.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
