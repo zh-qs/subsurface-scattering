@@ -41,7 +41,7 @@ find_package(glfw3 REQUIRED)
 
 set_property(TARGET SubsurfaceScattering PROPERTY CXX_STANDARD 17)
 target_link_libraries(imgui PUBLIC glfw)
-target_link_libraries(SubsurfaceScattering PRIVATE imgui glad)
+target_link_libraries(SubsurfaceScattering PRIVATE imgui glad assimp)
 target_link_libraries(glad PUBLIC GLESv2 dl)
 target_include_directories(glad PUBLIC .)
 target_include_directories(imgui PUBLIC ${IMGUI_DIR})
