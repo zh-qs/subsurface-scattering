@@ -53,7 +53,7 @@ void ScatteringViewWindow::build() {
 
 	// render other objects
 	glDepthFunc(GL_LESS);
-	mesh.render(camera, parameters.light, width, height);
+	mesh.render(camera, parameters, width, height);
 
 	fbo.unbind();
 
