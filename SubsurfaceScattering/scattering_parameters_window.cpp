@@ -17,5 +17,8 @@ void ScatteringParametersWindow::build() {
 	ImGui::SliderFloat("Specular", &parameters.light.specular, 0.0f, 1.0f);
 	ImGui::SliderFloat("m", &parameters.light.m, 0.0f, 100.0f);
 
+	ImGui::SeparatorText("Display");
+	ImGui::Combo("Mesh", &parameters.rendered_mesh_idx, "Cube\0Salt Lamp\0Head");
+
 	ImGui::End();
 }

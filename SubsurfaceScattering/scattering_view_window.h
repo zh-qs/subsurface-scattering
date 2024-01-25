@@ -8,6 +8,8 @@ class ScatteringViewWindow : public Window {
 	const ScatteringParameters &parameters;
 
 	TriMesh mesh;
+	TriMesh salt;
+	TriMesh head;
 
 	FrameBuffer fbo;
 	Camera camera;

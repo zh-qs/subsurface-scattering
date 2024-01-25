@@ -1,5 +1,8 @@
 #include "mesh_generator.h"
 #include <fstream>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 void MeshGenerator::generate_grid(LineMesh& mesh, unsigned int half_x_count, unsigned int half_z_count, float x_length, float z_length)
 {
@@ -78,6 +81,42 @@ void MeshGenerator::load_from_file(TriMesh& mesh, const char* filename, bool nor
 		{
 			vertices[i] = scale * vertices[i] + half;
 		}
+	}
+
+	mesh.set_data(vertices, indices);
+	mesh.set_normals(normals);
+}
+
+void MeshGenerator::load_from_common_file(TriMesh &mesh, const char *filename) {
+	Assimp::Importer importer;
+	const aiScene *scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_GenNormals);
+
+	if (!scene)
+		return;
+
+	if (scene->mNumMeshes == 0)
+		return;
+
+	const auto &input_mesh = *scene->mMeshes[0];
+
+	std::vector<Vector3> vertices(input_mesh.mNumVertices);
+	std::vector<Vector3> normals(vertices.size());
+	std::vector<IndexTriple> indices(input_mesh.mNumFaces);
+
+	for (int i = 0; i < vertices.size(); ++i)
+	{
+		const auto vertex = input_mesh.mVertices[i];
+		const auto normal = input_mesh.mNormals[i];
+		vertices[i] = {vertex.x, vertex.y, vertex.z};
+		normals[i] = {normal.x, normal.y, normal.z};
+	}
+	for (int i = 0; i < indices.size(); ++i)
+	{
+		const auto face = input_mesh.mFaces[i];
+		if (face.mNumIndices != 3)
+			throw std::logic_error(
+				"Wrong number of vertices on imported model's face");
+		indices[i] = {face.mIndices[0], face.mIndices[1], face.mIndices[2]};
 	}
 
 	mesh.set_data(vertices, indices);
