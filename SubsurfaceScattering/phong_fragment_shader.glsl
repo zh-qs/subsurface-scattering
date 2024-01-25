@@ -26,9 +26,15 @@ void main() {
 
     float NdotL_wrap = (dot(normal, l) + wrap) / (1 + wrap);
 
-    float scatter =
-        smoothstep(0, scatter_width, NdotL_wrap) * 
-        smoothstep(scatter_width * 2, scatter_width, NdotL_wrap);
+    float scatter;
+    if(scatter_width == 0) {
+        scatter = 0;
+    }
+    else {
+        scatter =
+            smoothstep(0, scatter_width, NdotL_wrap) * 
+            smoothstep(scatter_width * 2, scatter_width, NdotL_wrap);
+    }
 
     float diffuse_part = diffuse * max(NdotL_wrap, 0);
     vec3 scatter_part = scatter * scatter_color * light_color;
