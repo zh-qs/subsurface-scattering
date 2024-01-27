@@ -36,7 +36,8 @@ template <GLenum MODE> class Mesh {
 		/*glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);*/
 		vbo.attrib_buffer(0, 3);
-		if (type == ShaderType::Phong || type == ShaderType::PhongDeformed || type == ShaderType::Textured) {
+		if (type == ShaderType::Phong || type == ShaderType::PhongDeformed ||
+			type == ShaderType::Textured) {
 			has_normals = true;
 			normal_vbo.init();
 			normal_vbo.bind();
@@ -86,6 +87,7 @@ template <GLenum MODE> class Mesh {
 	void set_normals(const std::vector<Vector3> &normals);
 	void render(const Camera &camera, const ScatteringParameters &parameters,
 				int width, int height);
+	void render_simple(const Camera &camera, int width, int height);
 };
 
 template <GLenum MODE>
@@ -127,7 +129,31 @@ void Mesh<MODE>::render(const Camera &camera,
 	shader.set_camera_position(camera.get_world_position());
 	shader.set_light(parameters.light);
 	shader.set_wrap(parameters.wrap);
-	shader.set_scatter(parameters.scatter_width, parameters.scatter_color);
+	shader.set_scatter(parameters.scatter_width, parameters.scatter_power, parameters.scatter_color);
+
+	vao.bind();
+	glDrawElements(MODE, indices_count, GL_UNSIGNED_INT, nullptr);
+	// glDrawArrays(MODE, 0, point_count);
+	vao.unbind();
+}
+
+template <GLenum MODE>
+void Mesh<MODE>::render_simple(const Camera &camera, int width, int height) {
+	if (!visible)
+		return;
+
+	auto pv =
+		camera.get_projection_matrix(width, height) * camera.get_view_matrix();
+
+	glEnable(GL_CULL_FACE);
+
+	Shader &shader = ShaderLibrary::get_shader(shader_type);
+
+	shader.use();
+	shader.set_pv(pv);
+	shader.set_m(model);
+	shader.set_color(color.x, color.y, color.z, 1.0f);
+	shader.set_camera_position(camera.get_world_position());
 
 	vao.bind();
 	glDrawElements(MODE, indices_count, GL_UNSIGNED_INT, nullptr);

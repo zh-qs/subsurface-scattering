@@ -21,6 +21,7 @@ class Shader
 	GLint wrap_location;
     GLint scatter_width_location;
     GLint scatter_color_location;
+    GLint scatter_power_location;
 
 	GLuint load_shader(const char *filename, GLenum shader_type);
 	void init_uniform_locations();
@@ -48,7 +49,7 @@ class Shader
 	void set_camera_position(const Vector3 &position);
 	void set_light(const Light &light);
 	void set_wrap(const float &wrap);
-    void set_scatter(const float &width, const Vector3 &color);
+    void set_scatter(const float &width, const float &power, const Vector3 &color);
 
 	void dispose();
 };
