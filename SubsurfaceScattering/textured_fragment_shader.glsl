@@ -22,6 +22,7 @@ uniform float m_exponent;
 uniform float wrap;
 uniform vec3 scatter_color;
 uniform float scatter_width;
+uniform float scatter_power;
 
 vec3 normalMapping(vec3 norm, vec3 tang, vec3 tn) {
 	vec3 bitangent = normalize(cross(norm, tang));
@@ -33,6 +34,7 @@ vec3 normalMapping(vec3 norm, vec3 tang, vec3 tn) {
 }
 
 void main() {
+    float light_dist = length(light_pos - world_pos);
 	vec3 l = normalize(light_pos - world_pos);
 	vec3 v = normalize(cam_pos - world_pos);
 	vec3 r = normalize(reflect(-l, normal));
@@ -58,20 +60,21 @@ void main() {
 	float scatter;
 	if (scatter_width == 0) {
 		scatter = 0;
-	} else {
+	}
+    else {
 		scatter = smoothstep(0, scatter_width, NdotL_wrap) *
-				  smoothstep(scatter_width * 2, scatter_width, NdotL_wrap);
+				  smoothstep(scatter_width * 2, scatter_width, NdotL_wrap) / light_dist / light_dist;
 	}
 
 	float diffuse_part = diffuse * max(NdotL_wrap, 0);
-	vec3 scatter_part = scatter * scatter_color * light_color;
+	vec3 scatter_part = scatter_power * scatter * scatter_color;
 
 	float specular_part = specular * pow(max(dot(r, v), 0), m_exponent);
 	if (NdotL_wrap <= 0) {
 		specular_part = 0;
 	}
 
-	output_color = vec4(color.xyz * light_color * (ambient + diffuse_part) +
-							light_color * specular_part + scatter_part,
+	output_color = vec4(color.xyz * light_color * (ambient + diffuse_part + scatter_part) +
+							light_color * specular_part,
 						color.w);
 }

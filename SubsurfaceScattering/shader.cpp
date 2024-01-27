@@ -58,6 +58,7 @@ void Shader::init_uniform_locations() {
 	wrap_location = get_uniform_location("wrap");
 	scatter_color_location = get_uniform_location("scatter_color");
 	scatter_width_location = get_uniform_location("scatter_width");
+	scatter_power_location = get_uniform_location("scatter_power");
 }
 
 void Shader::init(const char *vertex_shader_file,
@@ -254,9 +255,10 @@ void Shader::set_camera_position(const Vector3 &position) {
 
 void Shader::set_wrap(const float &wrap) { glUniform1f(wrap_location, wrap); }
 
-void Shader::set_scatter(const float &width, const Vector3 &color) {
+void Shader::set_scatter(const float &width, const float &power, const Vector3 &color) {
 	glUniform1f(scatter_width_location, width);
 	glUniform3f(scatter_color_location, color.x, color.y, color.z);
+    glUniform1f(scatter_power_location, power);
 }
 
 void Shader::set_light(const Light &light) {

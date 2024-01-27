@@ -80,8 +80,12 @@ void ScatteringViewWindow::build() {
 		break;
 	}
 
-	light.model = Matrix4x4::translation(parameters.light.position) *
-				  Matrix4x4::scale({0.25f, 0.25f, 0.25f});
+	constexpr float light_size = 0.125f;
+
+	light.model = Matrix4x4::translation(
+					  parameters.light.position -
+					  0.5f * Vector3({light_size, light_size, light_size})) *
+				  Matrix4x4::scale({light_size, light_size, light_size});
 	light.color = {parameters.light.color.x, parameters.light.color.y,
 				   parameters.light.color.z, 1.0f};
 	light.render_simple(camera, width, height);
