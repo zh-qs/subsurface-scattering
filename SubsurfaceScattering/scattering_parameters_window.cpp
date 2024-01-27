@@ -20,5 +20,8 @@ void ScatteringParametersWindow::build() {
 	ImGui::SliderFloat("Scatter width", &parameters.scatter_width, 0.0f, 1.0f);
 	ImGui::ColorEdit3("Scatter color", parameters.scatter_color.data());
 
+	ImGui::SeparatorText("Display");
+	ImGui::Combo("Mesh", &parameters.rendered_mesh_idx, "Cube\0Salt Lamp\0Head");
+
 	ImGui::End();
 }
