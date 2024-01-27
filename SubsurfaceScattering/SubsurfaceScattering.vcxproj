@@ -291,6 +291,10 @@
     <CopyFileToFolders Include="models\Tete-Norm.bmp" />
     <CopyFileToFolders Include="models\Tete-Tex.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="models\flat_normals.bmp" />
+    <CopyFileToFolders Include="models\gltf_embedded_0.bmp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -11,7 +11,7 @@ class MeshGenerator {
 	static void load_from_file(TriMesh &mesh, const char *filename,
 							   bool normalize = false);
 	static void load_from_common_file(TriMesh &mesh, const char *filename);
-	static void load_from_common_file_with_uvs(TexturedTriMesh &mesh,
+	static void load_from_common_file(TexturedTriMesh &mesh,
 									  const char *filename);
 	static void load_textures(TexturedTriMesh &mesh, const char *color_texture,
 							  const char *normal_texture);

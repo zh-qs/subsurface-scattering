@@ -125,7 +125,7 @@ void MeshGenerator::load_from_common_file(TriMesh &mesh, const char *filename) {
 	mesh.set_normals(normals);
 }
 
-void MeshGenerator::load_from_common_file_with_uvs(TexturedTriMesh &mesh,
+void MeshGenerator::load_from_common_file(TexturedTriMesh &mesh,
 										  const char *filename) {
 	Assimp::Importer importer;
 	const aiScene *scene = importer.ReadFile(

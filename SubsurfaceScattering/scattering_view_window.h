@@ -10,7 +10,7 @@ class ScatteringViewWindow : public Window {
 
     TriMesh light;
 	TriMesh mesh;
-	TriMesh salt;
+	TexturedTriMesh salt;
 	TexturedTriMesh head;
 
 	FrameBuffer fbo;

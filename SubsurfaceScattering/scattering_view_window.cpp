@@ -4,7 +4,7 @@
 ScatteringViewWindow::ScatteringViewWindow(
 	const ScatteringParameters &parameters)
 	: parameters(parameters), light(ShaderType::Simple),
-	  mesh(ShaderType::Phong), salt(ShaderType::Phong), head() {
+	  mesh(ShaderType::Phong), salt(), head() {
 	name = "View";
 
 	fbo.init();
@@ -21,10 +21,12 @@ ScatteringViewWindow::ScatteringViewWindow(
 	mesh.model = Matrix4x4::translation({-0.5f, -0.5f, -0.5f});
 
 	MeshGenerator::load_from_common_file(salt, "models/salt.glb");
+	MeshGenerator::load_textures(salt, "models/gltf_embedded_0.bmp",
+								 "models/flat_normals.bmp");
 	salt.color = {1.0f, 0.5f, 0.1f, 1.0f};
 	salt.model = Matrix4x4::uniform_scale(8.0f);
 
-	MeshGenerator::load_from_common_file_with_uvs(head, "models/OldFace.FBX");
+	MeshGenerator::load_from_common_file(head, "models/OldFace.FBX");
 	MeshGenerator::load_textures(head, "models/Tete-Tex.bmp",
 								 "models/Tete-Norm.bmp");
 	head.color = {1.0f, 1.0f, 1.0f, 1.0f};
