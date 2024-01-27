@@ -272,7 +272,7 @@ void Shader::set_translucency(const float &translucency, const float &sigma_t,
 	glUniform1f(sigma_t_location, sigma_t);
 	glUniformMatrix4fv(light_pv_location, 1, GL_FALSE,
 					   GLColumnOrderMatrix4x4(light_pv).elem);
-	glUniform1i(depth_map_location, 2);
+	glUniform1i(depth_map_location, 3);
 }
 
 void Shader::set_light(const Light &light) {

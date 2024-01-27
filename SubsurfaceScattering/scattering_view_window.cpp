@@ -119,7 +119,7 @@ void ScatteringViewWindow::build() {
 
 	// render other objects
 	glDepthFunc(GL_LESS);
-	glActiveTexture(GL_TEXTURE2);
+	glActiveTexture(GL_TEXTURE3);
 	depth_map_texture.bind();
 	switch (parameters.rendered_mesh_idx) {
 	case 0:
