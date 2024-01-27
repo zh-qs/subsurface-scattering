@@ -43,7 +43,8 @@ class TexturedTriMesh : public TriMesh {
 		glUniform1i(shader.get_uniform_location("normal_tex"), 1);
 		glUniform1i(shader.get_uniform_location("diffuse_tex"), 2);
 
-		Shader &diffuse_shader = ShaderLibrary::get_shader(ShaderType::DiffusePass);
+		Shader &diffuse_shader =
+			ShaderLibrary::get_shader(ShaderType::DiffusePass);
 		diffuse_shader.use();
 		glUniform1i(diffuse_shader.get_uniform_location("color_tex"), 0);
 		glUniform1i(diffuse_shader.get_uniform_location("normal_tex"), 1);
@@ -87,6 +88,7 @@ class TexturedTriMesh : public TriMesh {
 		shader.set_color(color.x, color.y, color.z, color.w);
 		shader.set_camera_position(camera.get_world_position());
 		shader.set_light(parameters.light);
+		shader.set_diffuse_blur(parameters.diffuse_blur);
 
 		vao.bind();
 		glDrawElements(GL_TRIANGLES, indices_count, GL_UNSIGNED_INT, nullptr);
@@ -127,6 +129,6 @@ class TexturedTriMesh : public TriMesh {
 		vao.unbind();
 
 		diffuse_fbo.unbind();
-        diffuse_texture.unbind();
+		diffuse_texture.unbind();
 	}
 };

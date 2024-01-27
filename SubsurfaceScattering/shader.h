@@ -23,6 +23,7 @@ class Shader {
 	GLint scatter_power_location;
 	GLint scatter_falloff_location;
 	GLint angle_scatter_location;
+    GLint diffuse_blur_location;
 
 	GLuint load_shader(const char *filename, GLenum shader_type);
 	void init_uniform_locations();
@@ -53,6 +54,7 @@ class Shader {
 	void set_scatter(const float &width, const float &power,
 					 const Vector3 &color, const int falloff,
 					 const bool angle);
+    void set_diffuse_blur(float diffuse_blur);
 
 	void dispose();
 };

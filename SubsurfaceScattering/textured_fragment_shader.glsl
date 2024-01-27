@@ -18,6 +18,8 @@ uniform float ambient;
 uniform float specular;
 uniform float m_exponent;
 
+uniform float diffuse_blur;
+
 vec3 normalMapping(vec3 norm, vec3 tang, vec3 tn) {
 	vec3 bitangent = normalize(cross(norm, tang));
 	tang = normalize(cross(bitangent, norm));
@@ -36,6 +38,20 @@ void main() {
 	vec2 correct_uv = vec2(uv.x, 1.0f - uv.y);
 	vec4 color = texture(color_tex, correct_uv);
     vec4 diffuse = texture(diffuse_tex, uv);
+
+    if(diffuse_blur != 0) {
+        float r = diffuse_blur;
+        diffuse +=
+            texture(diffuse_tex, vec2(uv.x + r, uv.y    )) +
+            texture(diffuse_tex, vec2(uv.x + r, uv.y - r)) +
+            texture(diffuse_tex, vec2(uv.x + r, uv.y + r)) +
+            texture(diffuse_tex, vec2(uv.x - r, uv.y    )) +
+            texture(diffuse_tex, vec2(uv.x - r, uv.y - r)) +
+            texture(diffuse_tex, vec2(uv.x - r, uv.y + r)) +
+            texture(diffuse_tex, vec2(uv.x    , uv.y + r)) +
+            texture(diffuse_tex, vec2(uv.x    , uv.y - r));
+        diffuse /= 9;
+    }
 	
 	// normal mapping
 	vec3 dPdx = dFdx(world_pos);
