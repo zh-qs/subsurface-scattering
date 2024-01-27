@@ -16,6 +16,7 @@ class ScatteringViewWindow : public Window {
 	FrameBuffer fbo;
 	Camera camera;
 	RenderTexture texture;
+    RenderTexture diffuse_texture;
 public:
 	ScatteringViewWindow(const ScatteringParameters& parameters);
 	virtual void build() override;
