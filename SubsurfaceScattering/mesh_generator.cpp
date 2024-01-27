@@ -1,4 +1,5 @@
 #include "mesh_generator.h"
+#include <tuple>
 #include <fstream>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
