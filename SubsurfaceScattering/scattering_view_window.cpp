@@ -3,7 +3,8 @@
 
 ScatteringViewWindow::ScatteringViewWindow(
 	const ScatteringParameters &parameters)
-	: parameters(parameters), mesh(ShaderType::Phong), salt(ShaderType::Phong), head() {
+	: parameters(parameters), light(ShaderType::Simple),
+	  mesh(ShaderType::Phong), salt(ShaderType::Phong), head() {
 	name = "View";
 
 	fbo.init();
@@ -12,6 +13,8 @@ ScatteringViewWindow::ScatteringViewWindow(
 	texture.bind();
 	texture.configure();
 	fbo.unbind();
+
+	MeshGenerator::generate_cube(light);
 
 	MeshGenerator::generate_cube(mesh);
 	mesh.color = {1.0f, 0.0f, 0.0f, 1.0f};
@@ -25,7 +28,8 @@ ScatteringViewWindow::ScatteringViewWindow(
 	MeshGenerator::load_textures(head, "models/Tete-Tex.bmp",
 								 "models/Tete-Norm.bmp");
 	head.color = {1.0f, 1.0f, 1.0f, 1.0f};
-	head.model = Matrix4x4::rotation_x(-5.0f/12.0f * PI) * Matrix4x4::uniform_scale(0.03f);
+	head.model = Matrix4x4::rotation_x(-5.0f / 12.0f * PI) *
+				 Matrix4x4::uniform_scale(0.03f);
 }
 
 void ScatteringViewWindow::build() {
@@ -75,6 +79,12 @@ void ScatteringViewWindow::build() {
 		head.render(camera, parameters, width, height);
 		break;
 	}
+
+	light.model = Matrix4x4::translation(parameters.light.position) *
+				  Matrix4x4::scale({0.25f, 0.25f, 0.25f});
+	light.color = {parameters.light.color.x, parameters.light.color.y,
+				   parameters.light.color.z, 1.0f};
+	light.render_simple(camera, width, height);
 
 	fbo.unbind();
 

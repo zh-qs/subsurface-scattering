@@ -8,6 +8,7 @@
 class ScatteringViewWindow : public Window {
 	const ScatteringParameters &parameters;
 
+    TriMesh light;
 	TriMesh mesh;
 	TriMesh salt;
 	TexturedTriMesh head;
