@@ -12,6 +12,8 @@ void ShaderLibrary::init() {
 					"phong_fragment_shader.glsl");
 	shaders[4].init("depth_map_vertex_shader.glsl",
 					"depth_map_fragment_shader.glsl");
+	shaders[5].init("textured_vertex_shader.glsl",
+					"textured_fragment_shader.glsl");
 
 	initialized = true;
 }

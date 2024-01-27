@@ -3,7 +3,7 @@
 
 ScatteringViewWindow::ScatteringViewWindow(
 	const ScatteringParameters &parameters)
-	: parameters(parameters), mesh(ShaderType::Phong) {
+	: parameters(parameters), mesh(ShaderType::Phong), salt(ShaderType::Phong), head() {
 	name = "View";
 
 	fbo.init();
@@ -15,6 +15,17 @@ ScatteringViewWindow::ScatteringViewWindow(
 
 	MeshGenerator::generate_cube(mesh);
 	mesh.color = {1.0f, 0.0f, 0.0f, 1.0f};
+	mesh.model = Matrix4x4::translation({-0.5f, -0.5f, -0.5f});
+
+	MeshGenerator::load_from_common_file(salt, "models/salt.glb");
+	salt.color = {1.0f, 0.5f, 0.1f, 1.0f};
+	salt.model = Matrix4x4::uniform_scale(8.0f);
+
+	MeshGenerator::load_from_common_file_with_uvs(head, "models/OldFace.FBX");
+	MeshGenerator::load_textures(head, "models/Tete-Tex.bmp",
+								 "models/Tete-Norm.bmp");
+	head.color = {1.0f, 1.0f, 1.0f, 1.0f};
+	head.model = Matrix4x4::rotation_x(-5.0f/12.0f * PI) * Matrix4x4::uniform_scale(0.03f);
 }
 
 void ScatteringViewWindow::build() {
@@ -53,7 +64,17 @@ void ScatteringViewWindow::build() {
 
 	// render other objects
 	glDepthFunc(GL_LESS);
-	mesh.render(camera, parameters, width, height);
+	switch (parameters.rendered_mesh_idx) {
+	case 0:
+		mesh.render(camera, parameters, width, height);
+		break;
+	case 1:
+		salt.render(camera, parameters, width, height);
+		break;
+	case 2:
+		head.render(camera, parameters, width, height);
+		break;
+	}
 
 	fbo.unbind();
 

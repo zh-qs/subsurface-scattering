@@ -72,16 +72,16 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LibraryPath>E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\lib;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -89,13 +89,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui;..\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\bmpmini;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glad.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,7 +106,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui;..\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\bmpmini;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -114,7 +114,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glad.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,13 +123,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui;..\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\bmpmini;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glad.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,7 +140,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui;..\implot</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\bmpmini;E:\pw_archiwum\sem8\vcpkg\packages\assimp_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\egl-registry_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glad_x64-windows\include;E:\pw_archiwum\sem8\vcpkg\packages\glfw3_x64-windows\include;..\imgui</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -148,7 +148,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glad.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3dll.lib;glad.lib;assimp-vc143-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -177,6 +177,7 @@
     <ClInclude Include="state_listener.h" />
     <ClInclude Include="task.h" />
     <ClInclude Include="texture.h" />
+    <ClInclude Include="textured_mesh.h" />
     <ClInclude Include="vertex_array.h" />
     <ClInclude Include="window.h" />
   </ItemGroup>
@@ -253,13 +254,42 @@
     <CopyFileToFolders Include="depth_map_vertex_shader.glsl">
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <None Include="phong_deformed_vertex_shader.glsl" />
+    <CopyFileToFolders Include="models\salt.glb">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\..\..\sem8\vcpkg\packages\assimp_x64-windows\bin\assimp-vc143-mt.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\..\..\sem8\vcpkg\packages\zlib_x64-windows\bin\zlib1.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\..\..\..\sem8\vcpkg\packages\pugixml_x64-windows\bin\pugixml.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="phong_deformed_vertex_shader.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="quad_vertex_shader.glsl">
       <FileType>Document</FileType>
     </CopyFileToFolders>
     <CopyFileToFolders Include="scpm_fragment_shader.glsl">
       <FileType>Document</FileType>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="textured_fragment_shader.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="textured_vertex_shader.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="models\OldFace.FBX">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="models\Tete-Norm.bmp" />
+    <CopyFileToFolders Include="models\Tete-Tex.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

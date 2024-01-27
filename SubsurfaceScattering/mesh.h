@@ -36,7 +36,7 @@ template <GLenum MODE> class Mesh {
 		/*glEnableVertexAttribArray(0);
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);*/
 		vbo.attrib_buffer(0, 3);
-		if (type == ShaderType::Phong || type == ShaderType::PhongDeformed) {
+		if (type == ShaderType::Phong || type == ShaderType::PhongDeformed || type == ShaderType::Textured) {
 			has_normals = true;
 			normal_vbo.init();
 			normal_vbo.bind();
