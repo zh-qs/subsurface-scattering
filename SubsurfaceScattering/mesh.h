@@ -129,7 +129,9 @@ void Mesh<MODE>::render(const Camera &camera,
 	shader.set_camera_position(camera.get_world_position());
 	shader.set_light(parameters.light);
 	shader.set_wrap(parameters.wrap);
-	shader.set_scatter(parameters.scatter_width, parameters.scatter_power, parameters.scatter_color);
+	shader.set_scatter(parameters.scatter_width, parameters.scatter_power,
+					   parameters.scatter_color, parameters.scatter_falloff,
+					   parameters.angle_scatter);
 
 	vao.bind();
 	glDrawElements(MODE, indices_count, GL_UNSIGNED_INT, nullptr);
