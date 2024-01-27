@@ -19,6 +19,8 @@ uniform float wrap;
 uniform vec3 scatter_color;
 uniform float scatter_width;
 uniform float scatter_power;
+uniform int angle_scatter;
+uniform int scatter_falloff;
 
 void main() {
     float light_dist = length(light_pos - world_pos);
@@ -32,11 +34,15 @@ void main() {
     if(scatter_width == 0) {
         scatter = 0;
     }
+    else if(angle_scatter == 0) {
+        scatter = scatter_width;
+    }
     else {
         scatter =
             smoothstep(0, scatter_width, NdotL_wrap) * 
-            smoothstep(scatter_width * 2, scatter_width, NdotL_wrap) / light_dist / light_dist;
+            smoothstep(scatter_width * 2, scatter_width, NdotL_wrap);
     }
+    scatter /= pow(light_dist, scatter_falloff);
 
     float diffuse_part = diffuse * max(NdotL_wrap, 0);
     vec3 scatter_part = scatter_power * scatter * scatter_color;
