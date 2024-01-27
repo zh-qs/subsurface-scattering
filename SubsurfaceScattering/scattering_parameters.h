@@ -12,4 +12,5 @@ class ScatteringParameters {
 	Vector3 scatter_color = {1.0f, 1.0f, 1.0f};
     int scatter_falloff = 2;
     bool angle_scatter = false;
+    float diffuse_blur = 0.0f;
 };

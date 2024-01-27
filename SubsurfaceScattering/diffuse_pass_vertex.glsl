@@ -8,7 +8,6 @@ out vec3 world_pos;
 out vec3 normal;
 out vec2 uv;
 
-uniform mat4 pv;
 uniform mat4 m;
 
 void main() {
@@ -16,5 +15,5 @@ void main() {
 	world_pos = world4.xyz;
 	normal = normalize((m * vec4(input_normal, 0.0f)).xyz);
 	uv = input_uv;
-	gl_Position = pv * world4;
+	gl_Position = vec4(uv.x * 2 - 1, uv.y * 2 - 1, 0.0f, 1.0f);
 }

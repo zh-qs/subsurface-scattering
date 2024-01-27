@@ -12,6 +12,7 @@ ScatteringViewWindow::ScatteringViewWindow(
 	texture.init();
 	texture.bind();
 	texture.configure();
+	texture.unbind();
 	fbo.unbind();
 
 	MeshGenerator::generate_cube(light);
@@ -40,6 +41,15 @@ void ScatteringViewWindow::build() {
 	ImVec2 canvas_sz =
 		ImGui::GetContentRegionAvail(); // Resize canvas to what's available
 	int width = canvas_sz.x, height = canvas_sz.y;
+
+	switch (parameters.rendered_mesh_idx) {
+	case 0:
+	case 1:
+		break;
+	case 2:
+		head.render_diffuse(camera, parameters);
+		break;
+	}
 
 	texture.bind();
 	texture.set_size(width, height);

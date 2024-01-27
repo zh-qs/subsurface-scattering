@@ -7,8 +7,19 @@ template <GLenum FORMAT, GLenum INTERNALFORMAT = FORMAT, bool WITH_RENDERBUFFER 
 class GlTexture {
 	GLuint id;
 	GLuint rbid;
+
+    int width;
+    int height;
 public:
 	GLuint get_id() const { return id; }
+
+    int get_width() {
+        return width;
+    }
+
+    int get_height() {
+        return height;
+    }
 
 	void init() {
 		glGenTextures(1, &id);
@@ -25,6 +36,9 @@ public:
 	}
 
 	void set_size(int width, int height) {
+        this->width = width;
+        this->height = height;
+
 		//glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
 		glTexImage2D(GL_TEXTURE_2D, 0, INTERNALFORMAT, width, height, 0, FORMAT, GL_FLOAT, nullptr);
 
@@ -41,6 +55,9 @@ public:
 	}
 
 	void set_image(int width, int height, const void* pixels) {
+        this->width = width;
+        this->height = height;
+
 		glTexImage2D(GL_TEXTURE_2D, 0, INTERNALFORMAT, width, height, 0, FORMAT, GL_FLOAT, pixels);
 
 		if constexpr (WITH_RENDERBUFFER)
@@ -51,7 +68,7 @@ public:
 		}
 	}
 
-	void get_image(int width, int height, void* pixels) const {
+	void get_image(void* pixels) const {
 		glGetTexImage(GL_TEXTURE_2D, 0, FORMAT, GL_FLOAT, pixels);
 	}
 

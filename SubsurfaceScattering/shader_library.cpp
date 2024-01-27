@@ -14,6 +14,7 @@ void ShaderLibrary::init() {
 					"depth_map_fragment_shader.glsl");
 	shaders[5].init("textured_vertex_shader.glsl",
 					"textured_fragment_shader.glsl");
+    shaders[6].init("diffuse_pass_vertex.glsl", "diffuse_pass_fragment.glsl");
 
 	initialized = true;
 }
