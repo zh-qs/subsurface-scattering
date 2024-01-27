@@ -147,12 +147,13 @@ void Mesh<MODE>::render(const Camera &camera,
 	shader.set_light(parameters.light);
 	shader.set_wrap(parameters.wrap);
 	shader.set_scatter(parameters.scatter_width, parameters.scatter_power,
-					   parameters.scatter_color);
+		parameters.scatter_color, parameters.scatter_falloff,
+		parameters.angle_scatter);
 	shader.set_translucency(parameters.translucency, parameters.sigma_t,
-							parameters.light_camera.get_projection_matrix(
-								ScatteringParameters::DEPTH_MAP_SIZE,
-								ScatteringParameters::DEPTH_MAP_SIZE) *
-								parameters.light_camera.get_view_matrix());
+		parameters.light_camera.get_projection_matrix(
+			ScatteringParameters::DEPTH_MAP_SIZE,
+			ScatteringParameters::DEPTH_MAP_SIZE) *
+		parameters.light_camera.get_view_matrix());
 
 	vao.bind();
 	glDrawElements(MODE, indices_count, GL_UNSIGNED_INT, nullptr);

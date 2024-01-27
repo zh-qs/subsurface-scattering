@@ -13,6 +13,8 @@ class ScatteringParameters {
 	float scatter_width = 0.8f;
 	float scatter_power = 0.0f;
 	Vector3 scatter_color = {1.0f, 1.0f, 1.0f};
+	int scatter_falloff = 2;
+	bool angle_scatter = false;
 	float translucency = 0.0f;
 	float sigma_t = 1.0f;
 	float grow = 0.0f;

@@ -59,6 +59,8 @@ void Shader::init_uniform_locations() {
 	scatter_color_location = get_uniform_location("scatter_color");
 	scatter_width_location = get_uniform_location("scatter_width");
 	scatter_power_location = get_uniform_location("scatter_power");
+	scatter_falloff_location = get_uniform_location("scatter_falloff");
+	angle_scatter_location = get_uniform_location("angle_scatter");
 
 	translucency_location = get_uniform_location("translucency");
 	sigma_t_location = get_uniform_location("sigma_t");
@@ -260,10 +262,14 @@ void Shader::set_camera_position(const Vector3 &position) {
 
 void Shader::set_wrap(const float &wrap) { glUniform1f(wrap_location, wrap); }
 
-void Shader::set_scatter(const float &width, const float &power, const Vector3 &color) {
+void Shader::set_scatter(const float &width, const float &power,
+						 const Vector3 &color, const int falloff,
+						 const bool angle) {
 	glUniform1f(scatter_width_location, width);
 	glUniform3f(scatter_color_location, color.x, color.y, color.z);
-    glUniform1f(scatter_power_location, power);
+	glUniform1f(scatter_power_location, power);
+	glUniform1i(scatter_falloff_location, falloff);
+	glUniform1i(angle_scatter_location, angle ? 1 : 0);
 }
 
 void Shader::set_translucency(const float &translucency, const float &sigma_t,
