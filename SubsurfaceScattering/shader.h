@@ -23,6 +23,11 @@ class Shader
     GLint scatter_color_location;
     GLint scatter_power_location;
 
+	GLint translucency_location;
+	GLint sigma_t_location;
+	GLint light_pv_location;
+	GLint depth_map_location;
+
 	GLuint load_shader(const char *filename, GLenum shader_type);
 	void init_uniform_locations();
 
@@ -50,6 +55,8 @@ class Shader
 	void set_light(const Light &light);
 	void set_wrap(const float &wrap);
     void set_scatter(const float &width, const float &power, const Vector3 &color);
+	void set_translucency(const float &translucency, const float &sigma_t,
+						  const Matrix4x4 &light_pv);
 
 	void dispose();
 };

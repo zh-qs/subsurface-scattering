@@ -9,10 +9,11 @@ uniform mat4 pv;
 uniform mat4 m;
 uniform vec3 light_pos;
 
+uniform float grow;
+
 void main() {
-	float grow = 0.05f;
-	vec3 p = input_pos + input_normal * grow;
-	vec4 world4 = m * vec4(p, 1.0f);
-	distance = length(light_pos - (m * vec4(input_pos, 1.0f)).xyz);
-	gl_Position = pv * world4;
+	vec4 world4 = m * vec4(input_pos, 1.0f);
+	vec4 p = world4 + vec4(normalize(input_normal) * grow, 0.0f);
+	distance = length(light_pos - world4.xyz);
+	gl_Position = pv * p;
 }

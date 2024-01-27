@@ -5,10 +5,16 @@
 struct Box {
 	float x_min, x_max, y_min, y_max, z_min, z_max;
 
-	inline bool contains(const Vector3& v) const { return v.x >= x_min && v.x <= x_max && v.y >= y_min && v.y <= y_max && v.z >= z_min && v.z <= z_max; }
-	inline bool contains(float x, float y, float z) const { return x >= x_min && x <= x_max && y >= y_min && y <= y_max && z >= z_min && z <= z_max; }
+	inline bool contains(const Vector3 &v) const {
+		return v.x >= x_min && v.x <= x_max && v.y >= y_min && v.y <= y_max &&
+			   v.z >= z_min && v.z <= z_max;
+	}
+	inline bool contains(float x, float y, float z) const {
+		return x >= x_min && x <= x_max && y >= y_min && y <= y_max &&
+			   z >= z_min && z <= z_max;
+	}
 
-	inline void add(const Vector3& v) {
+	inline void add(const Vector3 &v) {
 		x_min = std::min(v.x, x_min);
 		x_max = std::max(v.x, x_max);
 		y_min = std::min(v.y, y_min);
@@ -17,8 +23,7 @@ struct Box {
 		z_max = std::max(v.z, z_max);
 	}
 
-	inline void merge_with(const Box& box)
-	{
+	inline void merge_with(const Box &box) {
 		x_min = std::min(box.x_min, x_min);
 		x_max = std::max(box.x_max, x_max);
 		y_min = std::min(box.y_min, y_min);
@@ -27,8 +32,7 @@ struct Box {
 		z_max = std::max(box.z_max, z_max);
 	}
 
-	inline void intersect_with(const Box& box)
-	{
+	inline void intersect_with(const Box &box) {
 		x_min = std::max(box.x_min, x_min);
 		x_max = std::min(box.x_max, x_max);
 		y_min = std::max(box.y_min, y_min);
@@ -37,15 +41,11 @@ struct Box {
 		z_max = std::min(box.z_max, z_max);
 	}
 
-	inline bool is_empty() const
-	{
-		return x_max < x_min
-			|| y_max < y_min
-			|| z_max < z_min;
+	inline bool is_empty() const {
+		return x_max < x_min || y_max < y_min || z_max < z_min;
 	}
 
-	inline void offset_by(const Vector3& off)
-	{
+	inline void offset_by(const Vector3 &off) {
 		x_min -= off.x;
 		x_max += off.x;
 		y_min -= off.y;
@@ -54,8 +54,7 @@ struct Box {
 		z_max += off.z;
 	}
 
-	inline void offset_by(const float& off)
-	{
+	inline void offset_by(const float &off) {
 		x_min -= off;
 		x_max += off;
 		y_min -= off;
@@ -65,29 +64,37 @@ struct Box {
 	}
 
 	inline Vector3 center() const {
-		return { 0.5f * (x_min + x_max),0.5f * (y_min + y_max), 0.5f * (z_min + z_max) };
+		return {0.5f * (x_min + x_max), 0.5f * (y_min + y_max),
+				0.5f * (z_min + z_max)};
 	}
 
-	inline Vector3 min() const {
-		return { x_min,y_min,z_min };
+	inline Vector3 center(const Matrix4x4 &transform) const {
+		return (transform * Vector4::extend(center(), 1.0f)).xyz();
 	}
 
-	inline Vector3 max() const {
-		return { x_max,y_max,z_max };
+	inline Vector3 min() const { return {x_min, y_min, z_min}; }
+
+	inline Vector3 max() const { return {x_max, y_max, z_max}; }
+
+	inline float diameter() const { return (max() - min()).length(); }
+
+	inline float diameter(const Matrix4x4 &transform) const {
+		return (transform * Vector4::extend(max() - min(), 0.0f))
+			.xyz()
+			.length();
 	}
 
 	static inline Box infinite() {
 		const float inf = INFINITY;
-		return { -inf,inf,-inf,inf,-inf,inf };
+		return {-inf, inf, -inf, inf, -inf, inf};
 	}
 
 	static inline Box degenerate() {
 		const float inf = INFINITY;
-		return { inf,-inf,inf,-inf,inf,-inf };
+		return {inf, -inf, inf, -inf, inf, -inf};
 	}
 
-	static inline Box intersect(const Box& b1, const Box& b2)
-	{
+	static inline Box intersect(const Box &b1, const Box &b2) {
 		Box box;
 		box.x_min = std::max(b1.x_min, b2.x_min);
 		box.x_max = std::min(b1.x_max, b2.x_max);
@@ -99,8 +106,7 @@ struct Box {
 	}
 };
 
-template <class T>
-struct RangedBox {
+template <class T> struct RangedBox {
 	Box box;
 	Range<float> us, vs;
 };

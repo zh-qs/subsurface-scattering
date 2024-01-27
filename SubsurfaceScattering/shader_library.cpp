@@ -9,11 +9,11 @@ void ShaderLibrary::init() {
 	shaders[1].init("axes_vertex_shader.glsl", "axes_fragment_shader.glsl");
 	shaders[2].init("phong_vertex_shader.glsl", "phong_fragment_shader.glsl");
 	shaders[3].init("phong_deformed_vertex_shader.glsl",
-					"phong_fragment_shader.glsl");
+					"phong_translucent_fragment_shader.glsl");
 	shaders[4].init("depth_map_vertex_shader.glsl",
 					"depth_map_fragment_shader.glsl");
 	shaders[5].init("textured_vertex_shader.glsl",
-					"textured_fragment_shader.glsl");
+					"textured_translucent_fragment_shader.glsl");
 
 	initialized = true;
 }

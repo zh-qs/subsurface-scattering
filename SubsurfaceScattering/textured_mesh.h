@@ -49,7 +49,7 @@ class TexturedTriMesh : public TriMesh {
 	}
 
 	void render(const Camera &camera, const ScatteringParameters &parameters,
-				int width, int height) {
+				int width, int height) override {
 		glActiveTexture(GL_TEXTURE0);
 		color_texture.bind();
 		glActiveTexture(GL_TEXTURE1);

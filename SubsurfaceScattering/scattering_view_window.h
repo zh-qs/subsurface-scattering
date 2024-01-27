@@ -16,7 +16,12 @@ class ScatteringViewWindow : public Window {
 	FrameBuffer fbo;
 	Camera camera;
 	RenderTexture texture;
-public:
+
+	FrameBuffer depth_map_fbo;
+	RenderTexMap depth_map_texture;
+	GLint grow_location_dms;
+
+  public:
 	ScatteringViewWindow(const ScatteringParameters& parameters);
 	virtual void build() override;
 };

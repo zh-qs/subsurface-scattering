@@ -91,7 +91,7 @@ void MeshGenerator::load_from_file(TriMesh& mesh, const char* filename, bool nor
 
 void MeshGenerator::load_from_common_file(TriMesh &mesh, const char *filename) {
 	Assimp::Importer importer;
-	const aiScene *scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_GenNormals);
+	const aiScene *scene = importer.ReadFile(filename, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_JoinIdenticalVertices);
 
 	if (!scene)
 		return;

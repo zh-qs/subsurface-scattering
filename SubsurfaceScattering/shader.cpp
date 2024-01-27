@@ -59,6 +59,11 @@ void Shader::init_uniform_locations() {
 	scatter_color_location = get_uniform_location("scatter_color");
 	scatter_width_location = get_uniform_location("scatter_width");
 	scatter_power_location = get_uniform_location("scatter_power");
+
+	translucency_location = get_uniform_location("translucency");
+	sigma_t_location = get_uniform_location("sigma_t");
+	light_pv_location = get_uniform_location("light_pv");
+	depth_map_location = get_uniform_location("depth_map");
 }
 
 void Shader::init(const char *vertex_shader_file,
@@ -259,6 +264,15 @@ void Shader::set_scatter(const float &width, const float &power, const Vector3 &
 	glUniform1f(scatter_width_location, width);
 	glUniform3f(scatter_color_location, color.x, color.y, color.z);
     glUniform1f(scatter_power_location, power);
+}
+
+void Shader::set_translucency(const float &translucency, const float &sigma_t,
+							  const Matrix4x4 &light_pv) {
+	glUniform1f(translucency_location, translucency);
+	glUniform1f(sigma_t_location, sigma_t);
+	glUniformMatrix4fv(light_pv_location, 1, GL_FALSE,
+					   GLColumnOrderMatrix4x4(light_pv).elem);
+	glUniform1i(depth_map_location, 2);
 }
 
 void Shader::set_light(const Light &light) {
