@@ -29,6 +29,11 @@ vec3 normalMapping(vec3 norm, vec3 tang, vec3 tn) {
 				  tn.x * tang.z + tn.y * bitangent.z + tn.z * norm.z);
 }
 
+int texture_pyk(float rx, float ry) {
+    vec3 value = texture(diffuse_tex, vec2(uv.x + rx, uv.y + ry)).xyz;
+    return value.xyz == vec3(0, 0, 0) ? 0 : 1;
+}
+
 void main() {
     float light_dist = length(light_pos - world_pos);
 	vec3 l = normalize(light_pos - world_pos);
@@ -50,7 +55,15 @@ void main() {
             texture(diffuse_tex, vec2(uv.x - r, uv.y + r)) +
             texture(diffuse_tex, vec2(uv.x    , uv.y + r)) +
             texture(diffuse_tex, vec2(uv.x    , uv.y - r));
-        diffuse /= 9;
+        diffuse /= 1 +
+            texture_pyk(+r,  0) +
+            texture_pyk(+r, -r) +
+            texture_pyk(+r, +r) +
+            texture_pyk(-r,  0) +
+            texture_pyk(-r, -r) +
+            texture_pyk(-r, +r) +
+            texture_pyk( 0, +r) +
+            texture_pyk( 0, -r);
     }
 	
 	// normal mapping
