@@ -10,7 +10,7 @@ void ScatteringParametersWindow::build() {
 	ImGui::Begin(get_name());
 
 	ImGui::SeparatorText("Light");
-	ImGui::InputFloat3("Position", parameters.light.position.data());
+	ImGui::SliderFloat3("Position", parameters.light.position.data(), -10.0f, 10.0f);
 	ImGui::ColorEdit3("Color", parameters.light.color.data());
 	ImGui::SliderFloat("Ambient", &parameters.light.ambient, 0.0f, 1.0f);
 	ImGui::SliderFloat("Diffuse", &parameters.light.diffuse, 0.0f, 1.0f);
