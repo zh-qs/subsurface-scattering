@@ -4,7 +4,6 @@
 
 class FrameBuffer {
 	GLuint id;
-	GLuint renderbuffer_id;
 public:
 	void init() {
 		glGenFramebuffers(1, &id);

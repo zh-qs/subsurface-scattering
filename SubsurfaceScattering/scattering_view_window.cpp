@@ -12,6 +12,7 @@ ScatteringViewWindow::ScatteringViewWindow(
 	texture.init();
 	texture.bind();
 	texture.configure();
+	texture.unbind();
 	fbo.unbind();
 
 	depth_map_fbo.init();
@@ -48,11 +49,25 @@ ScatteringViewWindow::ScatteringViewWindow(
 void ScatteringViewWindow::build() {
 	ImGui::Begin(get_name());
 
+	GLint old_viewport[4];
+	glGetIntegerv(GL_VIEWPORT, old_viewport);
+
 	ImVec2 canvas_p0 =
 		ImGui::GetCursorScreenPos(); // ImDrawList API uses screen coordinates!
 	ImVec2 canvas_sz =
 		ImGui::GetContentRegionAvail(); // Resize canvas to what's available
 	int width = canvas_sz.x, height = canvas_sz.y;
+
+	switch (parameters.rendered_mesh_idx) {
+	case 0:
+		break;
+	case 1:
+		salt.render_diffuse(camera, parameters);
+		break;
+	case 2:
+		head.render_diffuse(camera, parameters);
+		break;
+	}
 
 	texture.bind();
 	texture.set_size(width, height);
@@ -61,9 +76,6 @@ void ScatteringViewWindow::build() {
 	glDepthFunc(GL_LESS);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
-
-	GLint old_viewport[4];
-	glGetIntegerv(GL_VIEWPORT, old_viewport);
 
 	// render depth map
 	depth_map_fbo.bind();

@@ -22,6 +22,8 @@ class ScatteringViewWindow : public Window {
 	GLint grow_location_dms;
 
   public:
+    RenderTexture diffuse_texture;
+
 	ScatteringViewWindow(const ScatteringParameters& parameters);
 	virtual void build() override;
 };

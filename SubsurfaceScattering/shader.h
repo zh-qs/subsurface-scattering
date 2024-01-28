@@ -23,6 +23,7 @@ class Shader {
 	GLint scatter_power_location;
 	GLint scatter_falloff_location;
 	GLint angle_scatter_location;
+	GLint diffuse_blur_location;
 
 	GLint translucency_location;
 	GLint sigma_t_location;
@@ -59,6 +60,7 @@ class Shader {
 					 const Vector3 &color, const int falloff, const bool angle);
 	void set_translucency(const float &translucency, const float &sigma_t,
 						  const Matrix4x4 &light_pv);
+	void set_diffuse_blur(float diffuse_blur);
 
 	void dispose();
 };

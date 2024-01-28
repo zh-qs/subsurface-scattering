@@ -18,4 +18,5 @@ class ScatteringParameters {
 	float translucency = 0.0f;
 	float sigma_t = 1.0f;
 	float grow = 0.0f;
+    float diffuse_blur = 0.0f;
 };

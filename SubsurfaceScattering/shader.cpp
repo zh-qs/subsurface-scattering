@@ -66,6 +66,8 @@ void Shader::init_uniform_locations() {
 	sigma_t_location = get_uniform_location("sigma_t");
 	light_pv_location = get_uniform_location("light_pv");
 	depth_map_location = get_uniform_location("depth_map");
+
+    diffuse_blur_location = get_uniform_location("diffuse_blur");
 }
 
 void Shader::init(const char *vertex_shader_file,
@@ -290,6 +292,10 @@ void Shader::set_light(const Light &light) {
 	glUniform1f(diffuse_location, light.diffuse);
 	glUniform1f(specular_location, light.specular);
 	glUniform1f(m_exponent_location, light.m);
+}
+
+void Shader::set_diffuse_blur(float diffuse_blur) {
+    glUniform1f(diffuse_blur_location, diffuse_blur);
 }
 
 void Shader::dispose() { glDeleteProgram(id); }
