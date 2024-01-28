@@ -33,12 +33,9 @@ ScatteringViewWindow::ScatteringViewWindow(
 	mesh.model = Matrix4x4::translation({-0.5f, -0.5f, -0.5f});
 
 	MeshGenerator::load_from_common_file(salt, "models/salt.glb");
-	//MeshGenerator::load_from_common_file(salt, "models/OldFace.FBX");
 	MeshGenerator::load_textures(salt, "models/gltf_embedded_0.bmp",
 								 "models/flat_normals.bmp");
-	
-	//MeshGenerator::load_textures(salt, "models/Tete-Tex.bmp",
-	//							 "models/Tete-Norm.bmp");
+
 	salt.color = {1.0f, 0.5f, 0.1f, 1.0f};
 	salt.model = Matrix4x4::uniform_scale(8.0f);
 
