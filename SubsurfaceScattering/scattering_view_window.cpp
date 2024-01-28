@@ -4,7 +4,7 @@
 ScatteringViewWindow::ScatteringViewWindow(
 	const ScatteringParameters &parameters)
 	: parameters(parameters), light(ShaderType::Simple),
-	  mesh(ShaderType::Phong), salt(ShaderType::Phong), head() {
+	  mesh(ShaderType::Phong), salt(), head() {
 	name = "View";
 
 	fbo.init();
@@ -15,6 +15,17 @@ ScatteringViewWindow::ScatteringViewWindow(
 	texture.unbind();
 	fbo.unbind();
 
+	depth_map_fbo.init();
+	depth_map_fbo.bind();
+	depth_map_texture.init();
+	depth_map_texture.bind();
+	depth_map_texture.configure();
+	depth_map_texture.set_size(ScatteringParameters::DEPTH_MAP_SIZE,
+							   ScatteringParameters::DEPTH_MAP_SIZE);
+	depth_map_fbo.unbind();
+	grow_location_dms = ShaderLibrary::get_shader(ShaderType::DepthMap)
+							.get_uniform_location("grow");
+
 	MeshGenerator::generate_cube(light);
 
 	MeshGenerator::generate_cube(mesh);
@@ -22,10 +33,13 @@ ScatteringViewWindow::ScatteringViewWindow(
 	mesh.model = Matrix4x4::translation({-0.5f, -0.5f, -0.5f});
 
 	MeshGenerator::load_from_common_file(salt, "models/salt.glb");
+	MeshGenerator::load_textures(salt, "models/gltf_embedded_0.bmp",
+								 "models/flat_normals.bmp");
+
 	salt.color = {1.0f, 0.5f, 0.1f, 1.0f};
 	salt.model = Matrix4x4::uniform_scale(8.0f);
 
-	MeshGenerator::load_from_common_file_with_uvs(head, "models/OldFace.FBX");
+	MeshGenerator::load_from_common_file(head, "models/OldFace.FBX");
 	MeshGenerator::load_textures(head, "models/Tete-Tex.bmp",
 								 "models/Tete-Norm.bmp");
 	head.color = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -36,6 +50,9 @@ ScatteringViewWindow::ScatteringViewWindow(
 void ScatteringViewWindow::build() {
 	ImGui::Begin(get_name());
 
+	GLint old_viewport[4];
+	glGetIntegerv(GL_VIEWPORT, old_viewport);
+
 	ImVec2 canvas_p0 =
 		ImGui::GetCursorScreenPos(); // ImDrawList API uses screen coordinates!
 	ImVec2 canvas_sz =
@@ -44,7 +61,9 @@ void ScatteringViewWindow::build() {
 
 	switch (parameters.rendered_mesh_idx) {
 	case 0:
+		break;
 	case 1:
+		salt.render_diffuse(camera, parameters);
 		break;
 	case 2:
 		head.render_diffuse(camera, parameters);
@@ -59,9 +78,44 @@ void ScatteringViewWindow::build() {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_BLEND);
 
-	GLint old_viewport[4];
-	glGetIntegerv(GL_VIEWPORT, old_viewport);
+	// render depth map
+	depth_map_fbo.bind();
+	glViewport(0.0f, 0.0f, ScatteringParameters::DEPTH_MAP_SIZE,
+			   ScatteringParameters::DEPTH_MAP_SIZE);
+	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glDepthFunc(GL_LESS);
+	ShaderLibrary::get_shader(ShaderType::DepthMap).use();
+	glUniform1f(grow_location_dms, parameters.grow);
+	switch (parameters.rendered_mesh_idx) {
+	case 0:
+		parameters.light_camera.look_from_at_box(parameters.light.position,
+												  mesh.get_bounding_box(), mesh.model);
+		mesh.render_with_other_shader(parameters.light_camera, parameters,
+									  ScatteringParameters::DEPTH_MAP_SIZE,
+									  ScatteringParameters::DEPTH_MAP_SIZE,
+									  ShaderType::DepthMap);
+		break;
+	case 1:
+		parameters.light_camera.look_from_at_box(parameters.light.position,
+												 salt.get_bounding_box(), salt.model);
+		salt.render_with_other_shader(parameters.light_camera, parameters,
+									  ScatteringParameters::DEPTH_MAP_SIZE,
+									  ScatteringParameters::DEPTH_MAP_SIZE,
+									  ShaderType::DepthMap);
+		break;
+	case 2:
+		parameters.light_camera.look_from_at_box(parameters.light.position,
+												 head.get_bounding_box(), head.model);
+		head.render_with_other_shader(parameters.light_camera, parameters,
+									  ScatteringParameters::DEPTH_MAP_SIZE,
+									  ScatteringParameters::DEPTH_MAP_SIZE,
+									  ShaderType::DepthMap);
+		break;
+	}
+	depth_map_fbo.unbind();
 
+	// render scene
 	fbo.bind();
 	glViewport(0, 0, width, height);
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -78,6 +132,8 @@ void ScatteringViewWindow::build() {
 
 	// render other objects
 	glDepthFunc(GL_LESS);
+	glActiveTexture(GL_TEXTURE3);
+	depth_map_texture.bind();
 	switch (parameters.rendered_mesh_idx) {
 	case 0:
 		mesh.render(camera, parameters, width, height);

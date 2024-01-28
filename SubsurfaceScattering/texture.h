@@ -108,3 +108,4 @@ public:
 using Texture = GlTexture<GL_RGBA>;
 using RenderTexture = GlTexture<GL_RGBA, GL_RGBA, true>;
 using TexMap = GlTexture<GL_RED, GL_R32F>;
+using RenderTexMap = GlTexture<GL_RED, GL_R32F, true>;

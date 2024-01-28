@@ -61,6 +61,12 @@ void Shader::init_uniform_locations() {
 	scatter_power_location = get_uniform_location("scatter_power");
 	scatter_falloff_location = get_uniform_location("scatter_falloff");
 	angle_scatter_location = get_uniform_location("angle_scatter");
+
+	translucency_location = get_uniform_location("translucency");
+	sigma_t_location = get_uniform_location("sigma_t");
+	light_pv_location = get_uniform_location("light_pv");
+	depth_map_location = get_uniform_location("depth_map");
+
     diffuse_blur_location = get_uniform_location("diffuse_blur");
 }
 
@@ -266,6 +272,15 @@ void Shader::set_scatter(const float &width, const float &power,
 	glUniform1f(scatter_power_location, power);
 	glUniform1i(scatter_falloff_location, falloff);
 	glUniform1i(angle_scatter_location, angle ? 1 : 0);
+}
+
+void Shader::set_translucency(const float &translucency, const float &sigma_t,
+							  const Matrix4x4 &light_pv) {
+	glUniform1f(translucency_location, translucency);
+	glUniform1f(sigma_t_location, sigma_t);
+	glUniformMatrix4fv(light_pv_location, 1, GL_FALSE,
+					   GLColumnOrderMatrix4x4(light_pv).elem);
+	glUniform1i(depth_map_location, 3);
 }
 
 void Shader::set_light(const Light &light) {

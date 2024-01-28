@@ -10,14 +10,20 @@ class ScatteringViewWindow : public Window {
 
     TriMesh light;
 	TriMesh mesh;
-	TriMesh salt;
+	TexturedTriMesh salt;
 	TexturedTriMesh head;
 
 	FrameBuffer fbo;
 	Camera camera;
 	RenderTexture texture;
+
+	FrameBuffer depth_map_fbo;
+	RenderTexMap depth_map_texture;
+	GLint grow_location_dms;
+
+  public:
     RenderTexture diffuse_texture;
-public:
+
 	ScatteringViewWindow(const ScatteringParameters& parameters);
 	virtual void build() override;
 };

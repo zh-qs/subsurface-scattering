@@ -67,7 +67,7 @@ class TexturedTriMesh : public TriMesh {
 	}
 
 	void render(const Camera &camera, const ScatteringParameters &parameters,
-				int width, int height) {
+				int width, int height) override {
 		glActiveTexture(GL_TEXTURE0);
 		color_texture.bind();
 		glActiveTexture(GL_TEXTURE1);
@@ -89,6 +89,14 @@ class TexturedTriMesh : public TriMesh {
 		shader.set_camera_position(camera.get_world_position());
 		shader.set_light(parameters.light);
 		shader.set_diffuse_blur(parameters.diffuse_blur);
+		shader.set_scatter(parameters.scatter_width, parameters.scatter_power,
+						   parameters.scatter_color, parameters.scatter_falloff,
+						   parameters.angle_scatter);
+		shader.set_translucency(parameters.translucency, parameters.sigma_t,
+								parameters.light_camera.get_projection_matrix(
+									ScatteringParameters::DEPTH_MAP_SIZE,
+									ScatteringParameters::DEPTH_MAP_SIZE) *
+									parameters.light_camera.get_view_matrix());
 
 		vao.bind();
 		glDrawElements(GL_TRIANGLES, indices_count, GL_UNSIGNED_INT, nullptr);
@@ -98,7 +106,6 @@ class TexturedTriMesh : public TriMesh {
 
 	void render_diffuse(const Camera &camera,
 						const ScatteringParameters &parameters) {
-
 		diffuse_texture.bind();
 		diffuse_texture.set_size(color_texture.get_width(),
 								 color_texture.get_height());
@@ -107,6 +114,7 @@ class TexturedTriMesh : public TriMesh {
 		glViewport(0, 0, color_texture.get_width(), color_texture.get_height());
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glDisable(GL_CULL_FACE);
 
 		glActiveTexture(GL_TEXTURE0);
 		color_texture.bind();

@@ -1,5 +1,6 @@
 #pragma once
 #include "algebra.h"
+#include "box.h"
 //#include "property_handle.h"
 
 class Serializer;
@@ -37,6 +38,8 @@ public:
 	Vector3 world_to_screen(const Vector3& world, int width, int height) const;
 	Vector3 get_world_position() const;
 	void look_at(const Vector3& vector) { target = vector; }
+	void look_from_at(const Vector3 &from, const Vector3 &at);
+	void look_from_at_box(const Vector3 &from, const Box &box, const Matrix4x4& transform);
 	Camera();
 
 	Camera& operator=(const Camera& camera) = default;

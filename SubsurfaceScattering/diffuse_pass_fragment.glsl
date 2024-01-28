@@ -34,7 +34,8 @@ void main() {
     float light_dist = length(light_pos - world_pos);
 	vec3 l = normalize(light_pos - world_pos);
 
-	vec2 correct_uv = vec2(uv.x, 1.0f - uv.y);
+	//vec2 correct_uv = vec2(uv.x, 1.0f - uv.y);
+	vec2 correct_uv = uv;
 	vec4 color = texture(color_tex, correct_uv);
 	
 	// normal mapping

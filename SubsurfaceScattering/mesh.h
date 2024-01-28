@@ -1,6 +1,7 @@
 #pragma once
 
 #include "algebra.h"
+#include "box.h"
 #include "buffer.h"
 #include "camera.h"
 #include "frame_buffer.h"
@@ -20,6 +21,13 @@ template <GLenum MODE> class Mesh {
 	ElementBuffer ebo;
 	size_t indices_count = 0;
 	bool has_normals = false;
+
+	Box bounding_box;
+	void calculate_bounding_box(const std::vector<Vector3> &vertices) {
+		bounding_box = Box::degenerate();
+		for (const auto &v : vertices)
+			bounding_box.add(v);
+	}
 
   public:
 	Matrix4x4 model = Matrix4x4::identity();
@@ -74,9 +82,12 @@ template <GLenum MODE> class Mesh {
 	template <class I>
 	void set_data(const std::vector<Vector3> &points,
 				  const std::vector<I> &indices) {
+		calculate_bounding_box(points);
+
 		vbo.bind();
 		vbo.set_static_data(reinterpret_cast<const float *>(points.data()),
 							points.size() * sizeof(Vector3));
+
 		ebo.bind();
 		ebo.set_static_data(
 			reinterpret_cast<const unsigned int *>(indices.data()),
@@ -85,9 +96,16 @@ template <GLenum MODE> class Mesh {
 	}
 	void set_data(const std::vector<Vector3> &points);
 	void set_normals(const std::vector<Vector3> &normals);
-	void render(const Camera &camera, const ScatteringParameters &parameters,
-				int width, int height);
+	virtual void render(const Camera &camera,
+						const ScatteringParameters &parameters, int width,
+						int height);
+	void render_with_other_shader(const Camera &camera,
+								  const ScatteringParameters &parameters,
+								  int width, int height,
+								  ShaderType other_shader);
 	void render_simple(const Camera &camera, int width, int height);
+
+	const Box &get_bounding_box() const { return bounding_box; }
 };
 
 template <GLenum MODE>
@@ -130,13 +148,28 @@ void Mesh<MODE>::render(const Camera &camera,
 	shader.set_light(parameters.light);
 	shader.set_wrap(parameters.wrap);
 	shader.set_scatter(parameters.scatter_width, parameters.scatter_power,
-					   parameters.scatter_color, parameters.scatter_falloff,
-					   parameters.angle_scatter);
+		parameters.scatter_color, parameters.scatter_falloff,
+		parameters.angle_scatter);
+	shader.set_translucency(parameters.translucency, parameters.sigma_t,
+		parameters.light_camera.get_projection_matrix(
+			ScatteringParameters::DEPTH_MAP_SIZE,
+			ScatteringParameters::DEPTH_MAP_SIZE) *
+		parameters.light_camera.get_view_matrix());
 
 	vao.bind();
 	glDrawElements(MODE, indices_count, GL_UNSIGNED_INT, nullptr);
 	// glDrawArrays(MODE, 0, point_count);
 	vao.unbind();
+}
+
+template <GLenum MODE>
+inline void Mesh<MODE>::render_with_other_shader(
+	const Camera &camera, const ScatteringParameters &parameters, int width,
+	int height, ShaderType other_shader) {
+	const auto old_shader = shader_type;
+	shader_type = other_shader;
+	render(camera, parameters, width, height);
+	shader_type = old_shader;
 }
 
 template <GLenum MODE>

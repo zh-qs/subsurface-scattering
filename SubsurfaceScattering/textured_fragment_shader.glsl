@@ -40,7 +40,7 @@ void main() {
 	vec3 v = normalize(cam_pos - world_pos);
 	vec3 r = normalize(reflect(-l, normal));
 
-	vec2 correct_uv = vec2(uv.x, 1.0f - uv.y);
+	vec2 correct_uv = vec2(uv.x, uv.y);
 	vec4 color = texture(color_tex, correct_uv);
     vec4 diffuse = texture(diffuse_tex, uv);
 

@@ -242,5 +242,17 @@
     <CopyFileToFolders Include="models\Tete-Tex.bmp">
       <Filter>Pliki zasobów\models</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="models\flat_normals.bmp">
+      <Filter>Pliki zasobów</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="models\gltf_embedded_0.bmp">
+      <Filter>Pliki zasobów</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="phong_translucent_fragment_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="textured_translucent_fragment_shader.glsl">
+      <Filter>Pliki zasobów\shaders</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

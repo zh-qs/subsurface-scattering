@@ -194,6 +194,30 @@ Vector3 Camera::get_world_position() const
 	return target - (distance_to_target / scale) * (rot3 * direction);
 }
 
+void Camera::look_from_at(const Vector3 &from, const Vector3 &at) 
+{
+	float d = (at - from).length();
+	if (d < 1e-5)
+		return;
+	target = at;
+	direction = normalize(at - from);
+	distance_to_target = d;
+	const Vector3 absolute_up = {0, -1, 0};
+	const auto up_candidate = cross(cross(direction, absolute_up), direction);
+	if (up_candidate.length() < 1e-5)
+		up = {0, 0, 1};
+	else
+		up = normalize(up_candidate);
+	rotx = roty = rotz = 0;
+}
+
+void Camera::look_from_at_box(const Vector3 &from, const Box &box, const Matrix4x4& transform) 
+{
+	const auto at = box.center(transform);
+	look_from_at(from, at);
+	fov_rad = 2.0f * atanf(0.5f * box.diameter(transform) / (from - at).length());
+}
+
 Camera::Camera() {
 	direction = { 0,0,1 };
 	target = { 0,0,0 };

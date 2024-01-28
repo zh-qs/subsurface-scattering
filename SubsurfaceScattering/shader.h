@@ -23,7 +23,12 @@ class Shader {
 	GLint scatter_power_location;
 	GLint scatter_falloff_location;
 	GLint angle_scatter_location;
-    GLint diffuse_blur_location;
+	GLint diffuse_blur_location;
+
+	GLint translucency_location;
+	GLint sigma_t_location;
+	GLint light_pv_location;
+	GLint depth_map_location;
 
 	GLuint load_shader(const char *filename, GLenum shader_type);
 	void init_uniform_locations();
@@ -52,9 +57,10 @@ class Shader {
 	void set_light(const Light &light);
 	void set_wrap(const float &wrap);
 	void set_scatter(const float &width, const float &power,
-					 const Vector3 &color, const int falloff,
-					 const bool angle);
-    void set_diffuse_blur(float diffuse_blur);
+					 const Vector3 &color, const int falloff, const bool angle);
+	void set_translucency(const float &translucency, const float &sigma_t,
+						  const Matrix4x4 &light_pv);
+	void set_diffuse_blur(float diffuse_blur);
 
 	void dispose();
 };

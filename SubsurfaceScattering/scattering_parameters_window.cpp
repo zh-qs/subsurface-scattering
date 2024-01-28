@@ -24,11 +24,18 @@ void ScatteringParametersWindow::build() {
 	ImGui::SliderInt("Scatter falloff power", &parameters.scatter_falloff, 0,
 					 3);
 	ImGui::Checkbox("Scatter depends on angle", &parameters.angle_scatter);
-	ImGui::DragFloat("Diffuse blur", &parameters.diffuse_blur, 0.00001f, 0.0f, 0.003f, "%.5f");
+	ImGui::SliderFloat("Translucency", &parameters.translucency, 0.0f, 1.0f);
+	ImGui::SliderFloat("sigma_t", &parameters.sigma_t, 0.0f, 5.0f);
+	ImGui::DragFloat("Diffuse blur", &parameters.diffuse_blur, 0.00001f, 0.0f,
+					 0.003f, "%.5f");
+
+	ImGui::SeparatorText("Depth map");
+	ImGui::SliderFloat("Grow", &parameters.grow, 0.0f, 0.1f);
+	
 
 	ImGui::SeparatorText("Display");
 	ImGui::Combo("Mesh", &parameters.rendered_mesh_idx,
-				 "Cube\0Salt Lamp\0Head");
+				 "Cube\0Salt Lamp\0Head\0");
 
 	ImGui::End();
 }

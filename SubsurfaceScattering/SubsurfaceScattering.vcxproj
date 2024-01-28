@@ -291,6 +291,28 @@
     <CopyFileToFolders Include="models\Tete-Norm.bmp" />
     <CopyFileToFolders Include="models\Tete-Tex.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="models\flat_normals.bmp" />
+    <CopyFileToFolders Include="models\gltf_embedded_0.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="phong_translucent_fragment_shader.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="textured_translucent_fragment_shader.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="diffuse_pass_fragment.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="diffuse_pass_vertex.glsl">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
