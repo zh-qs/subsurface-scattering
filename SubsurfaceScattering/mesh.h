@@ -87,6 +87,7 @@ template <GLenum MODE> class Mesh {
 		vbo.bind();
 		vbo.set_static_data(reinterpret_cast<const float *>(points.data()),
 							points.size() * sizeof(Vector3));
+
 		ebo.bind();
 		ebo.set_static_data(
 			reinterpret_cast<const unsigned int *>(indices.data()),
